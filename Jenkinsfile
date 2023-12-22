@@ -1,25 +1,17 @@
 pipeline {
     agent any
+    def app
     environment {
     DOCKERHUB_CREDENTIALS = credentials('azurecr')
     dotnet = '"C:\\Program Files\\dotnet\\dotnet.exe"'
   }
     stages {
-        stage('Build code') {
+        stage('Build image') {
             steps {
-                 bat "${dotnet} build"
+                 app = docker.build("pawfidreg.azurecr.io/pablo/hellonode")
             }
         }
-         stage('Run code') {
-            steps {
-                 bat "${dotnet} run"
-            }
-        }
-         stage('Clean code') {
-            steps {
-                 bat "${dotnet} clean"
-            }
-        }
+        
         
     }
 }

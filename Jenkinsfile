@@ -1,26 +1,14 @@
 pipeline {
     agent any
-
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('azurecr')
+  }
     stages {
-        stage('Build') {
+        stage('Build image') {
             steps {
-                echo 'Building..'
+                 sh 'docker build -t pawelfiderek/dockerable .'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-         stage('Clean') {
-            steps {
-                echo 'Cleaning....'
-            }
-        }
+        
     }
 }
